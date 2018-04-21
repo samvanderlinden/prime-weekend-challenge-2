@@ -5,10 +5,8 @@ $(document).ready(onReady);
 function onReady(){
     console.log('jquery is sourced');
     $('#addition').on('click', addition);
-    getAdditions();
+    $('#subtraction').on('click', subtraction);
 }
-
-// try using 'prepend' method to add row to top
 
 function addition() {
     const newAdd = {
@@ -38,5 +36,36 @@ function getAdditions() {
         let sum = xValue + yValue;
         $('#operationsHistory').empty();
         $('#operationHistory').prepend('<p>' + xValue + ' + ' + yValue + ' = ' + sum + '</p>');
+    })
+}
+
+function subtraction() {
+    const newSubtraction = {
+        x: ($('#xInput').val()),
+        y: ($('#yInput').val()),
+        type: 'Subtraction'
+    }
+    $.ajax({
+        method: 'post',
+        url: '/subtraction',
+        data: newSubtraction
+    })
+    .then(function(response){
+        getSubtractions();
+    })
+}
+
+function getSubtractions() {
+    $.ajax({
+        method: 'GET', 
+        url: '/get-subtraction'
+    })
+    .then(function(response){
+        console.log(response);
+        let xValue = Number($('#xInput').val());
+        let yValue = Number($('#yInput').val());
+        let difference = xValue - yValue;
+        $('#operationsHistory').empty();
+        $('#operationHistory').prepend('<p>' + xValue + ' - ' + yValue + ' = ' + difference + '</p>');
     })
 }

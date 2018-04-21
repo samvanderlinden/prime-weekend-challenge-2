@@ -26,6 +26,18 @@ app.get('/get-addition', function(req, res){
     console.log(calculations);
 })
 
+// Subtraction requests
+
+app.post('/subtraction', function(req, res){
+    calculations.push(req.body);
+    res.sendStatus(200);
+    console.log(calculations);
+})
+
+app.get('/get-subtraction', function(req, res){
+    res.send(calculations);
+})
+
 
 // LISTENING
 app.listen(PORT, function (){ 
