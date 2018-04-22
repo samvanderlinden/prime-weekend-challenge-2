@@ -2,70 +2,73 @@ console.log('client.js is sourced');
 
 $(document).ready(onReady);
 
-function onReady(){
+function onReady() {
     console.log('jquery is sourced');
-    $('#addition').on('click', addition);
-    $('#subtraction').on('click', subtraction);
+    $('.operationButton').on('click', clickedHandler);
 }
 
-function addition() {
+function clickedHandler(){
+    postOperation($(this).text());
+}
+
+function postOperation (type) {
     const newAdd = {
-        x: ($('#xInput').val()),
-        y: ($('#yInput').val()),
-        type: 'Add'
+        x: $('#xInput').val(),
+        y: $('#yInput').val(),
+        type: type
     }
     $.ajax({
-        method: 'post',
-        url: '/addition',
+        method: 'POST',
+        url: '/post',
         data: newAdd
     })
-    .then(function(response) {
-        getAdditions();
-    })
+        .then(function (response) {
+            getOperation();
+        })
 }
 
-function getAdditions() {
+function getOperation() {
     $.ajax({
         method: 'GET',
-        url: '/get-addition',
+        url: '/get',
     })
-    .then(function(response){
-        console.log(response);
-        let xValue = Number($('#xInput').val());
-        let yValue = Number($('#yInput').val());
-        let sum = xValue + yValue;
-        $('#operationsHistory').empty();
-        $('#operationHistory').prepend('<p>' + xValue + ' + ' + yValue + ' = ' + sum + '</p>');
-    })
+        .then(function (response) {
+            console.log(response);
+            $('#operationHistory').empty();
+            response.forEach(function(calculation){
+                $('#operationHistory').prepend('<p>' + calculation + '</p>');
+            });
+        });
 }
 
-function subtraction() {
-    const newSubtraction = {
-        x: ($('#xInput').val()),
-        y: ($('#yInput').val()),
-        type: 'Subtraction'
-    }
-    $.ajax({
-        method: 'post',
-        url: '/subtraction',
-        data: newSubtraction
-    })
-    .then(function(response){
-        getSubtractions();
-    })
-}
+// function subtraction() {
+//     const newSubtraction = {
+//         x: $('#xInput').val(),
+//         y: $('#yInput').val(),
+//         type: 'Subtraction'
+//     }
+//     $.ajax({
+//         method: 'POST',
+//         url: '/subtraction',
+//         data: newSubtraction
+//     })
+//         .then(function (response) {
+//             getSubtractions();
+//         })
+// }
 
-function getSubtractions() {
-    $.ajax({
-        method: 'GET', 
-        url: '/get-subtraction'
-    })
-    .then(function(response){
-        console.log(response);
-        let xValue = Number($('#xInput').val());
-        let yValue = Number($('#yInput').val());
-        let difference = xValue - yValue;
-        $('#operationsHistory').empty();
-        $('#operationHistory').prepend('<p>' + xValue + ' - ' + yValue + ' = ' + difference + '</p>');
-    })
-}
+// function getSubtractions() {
+//     $.ajax({
+//         method: 'GET',
+//         url: '/get-subtraction'
+//     })
+//         .then(function (response) {
+//             console.log(response);
+//             let xValue = Number($('#xInput').val());
+//             let yValue = Number($('#yInput').val());
+//             let difference = xValue - yValue;
+//             $('#operationsHistory').empty();
+//             $('#operationHistory').prepend('<p>' + xValue + ' - ' + yValue + ' = ' + difference + '</p>');
+//         })
+// }
+

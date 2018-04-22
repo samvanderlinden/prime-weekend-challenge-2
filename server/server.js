@@ -4,42 +4,42 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = 5000;
-
+const Calculations = require('./modules/calculations');
+const NewCalculation = new Calculations();
 
 app.use(express.static('server/public'));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-let calculations = [];
+// Requests
+app.get('/get', function (req, res) {
+    res.send(NewCalculation.history);
+    console.log(NewCalculation.history);
+})
 
-// Addition requests
-
-app.post('/addition', function(req, res){
-    console.log(req.body);
-    calculations.push(req.body);
+app.post('/post', function (req, res) {
+    NewCalculation.x = req.body.x;
+    NewCalculation.y = req.body.y;
+    NewCalculation.type = req.body.type;
+    // NewCalculation.history.push(req.body);
+    NewCalculation.operations();
     res.sendStatus(200);
-    console.log(calculations);
 });
 
-app.get('/get-addition', function(req, res){
-    res.send(calculations);
-    console.log(calculations);
-})
 
 // Subtraction requests
+// app.post('/subtraction', function (req, res) {
+//     console.log(req.body)
+//     Calculations.push(req.body);
+//     res.sendStatus(200);
+// })
 
-app.post('/subtraction', function(req, res){
-    calculations.push(req.body);
-    res.sendStatus(200);
-    console.log(calculations);
-})
-
-app.get('/get-subtraction', function(req, res){
-    res.send(calculations);
-})
-
+// app.get('/get-subtraction', function (req, res) {
+//     res.send(Calculations);
+//     console.log(Calculations);
+// })
 
 // LISTENING
-app.listen(PORT, function (){ 
+app.listen(PORT, function () {
     console.log(`listening to port, ${PORT}`)
 });
