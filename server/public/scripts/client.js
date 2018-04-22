@@ -6,6 +6,7 @@ function onReady() {
     console.log('jquery is sourced');
     $('.operationButton').on('click', clickedHandler);
     getArray();
+    $('#clearButton').on('click', clearButton);
 }
 
 function clickedHandler(){
@@ -42,6 +43,7 @@ function getOperation() {
         });
 }
 
+//This ajax method gets history array
 function getArray(){
     $.ajax({
         method:'GET',
@@ -54,34 +56,9 @@ function getArray(){
     })
 }
 
-// function subtraction() {
-//     const newSubtraction = {
-//         x: $('#xInput').val(),
-//         y: $('#yInput').val(),
-//         type: 'Subtraction'
-//     }
-//     $.ajax({
-//         method: 'POST',
-//         url: '/subtraction',
-//         data: newSubtraction
-//     })
-//         .then(function (response) {
-//             getSubtractions();
-//         })
-// }
 
-// function getSubtractions() {
-//     $.ajax({
-//         method: 'GET',
-//         url: '/get-subtraction'
-//     })
-//         .then(function (response) {
-//             console.log(response);
-//             let xValue = Number($('#xInput').val());
-//             let yValue = Number($('#yInput').val());
-//             let difference = xValue - yValue;
-//             $('#operationsHistory').empty();
-//             $('#operationHistory').prepend('<p>' + xValue + ' - ' + yValue + ' = ' + difference + '</p>');
-//         })
-// }
-
+// Clear inputs function
+function clearButton(){
+    $('#xInput').val('');
+    $('#yInput').val('');
+}
