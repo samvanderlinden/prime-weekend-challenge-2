@@ -5,6 +5,7 @@ $(document).ready(onReady);
 function onReady() {
     console.log('jquery is sourced');
     $('.operationButton').on('click', clickedHandler);
+    getArray();
 }
 
 function clickedHandler(){
@@ -39,6 +40,18 @@ function getOperation() {
                 $('#operationHistory').prepend('<p>' + calculation + '</p>');
             });
         });
+}
+
+function getArray(){
+    $.ajax({
+        method:'GET',
+        url: '/get-array'
+    })
+    .then(function(response){
+        response.forEach(function(array){
+            $('#operationHistory').prepend('<p>' + array + '</p>');
+        })   
+    })
 }
 
 // function subtraction() {

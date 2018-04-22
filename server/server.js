@@ -26,18 +26,10 @@ app.post('/post', function (req, res) {
     res.sendStatus(200);
 });
 
+app.get('/get-array', function(req, res){
+    res.send(NewCalculation.history);
+})
 
-// Subtraction requests
-// app.post('/subtraction', function (req, res) {
-//     console.log(req.body)
-//     Calculations.push(req.body);
-//     res.sendStatus(200);
-// })
-
-// app.get('/get-subtraction', function (req, res) {
-//     res.send(Calculations);
-//     console.log(Calculations);
-// })
 
 // LISTENING
 app.listen(PORT, function () {
