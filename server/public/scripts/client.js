@@ -5,8 +5,9 @@ $(document).ready(onReady);
 function onReady() {
     console.log('jquery is sourced');
     $('.operationButton').on('click', clickedHandler);
-    getArray();
     $('#clearButton').on('click', clearButton);
+    $('.btn btn-secondary').on('click', clearButton);
+    getArray();
 }
 
 function clickedHandler(){

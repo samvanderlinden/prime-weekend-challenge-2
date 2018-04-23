@@ -1,3 +1,21 @@
 body {
-    background-color: cornflowerblue;
+    background-color: rgb(190, 201, 190);
+}
+
+#container {
+    margin: auto;
+    width: 500px; 
+}
+
+#contents {
+    background-color: rgb(238, 237, 235);
+}
+
+h3 {
+    border-style: solid;
+}
+
+p {
+    margin: auto;
+    width: 200px;
 }
