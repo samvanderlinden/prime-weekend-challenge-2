@@ -8,14 +8,15 @@ body {
 }
 
 #contents {
-    background-color: rgb(238, 237, 235);
+    background-color: rgb(188, 218, 243);
+    border-radius: 10px;
 }
 
 h3 {
-    border-style: solid;
+    border-radius: 10px;
 }
 
 p {
     margin: auto;
-    width: 200px;
+    width: 50%;
 }
